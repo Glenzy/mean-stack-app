@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  template: `
-    <app-posts></app-posts>
-  `,
+  templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'My MEAN Stack';
+export class AppComponent implements OnInit {
+  title: String;
+  constructor() { }
+  ngOnInit() {
+    this.title = "Some App";
+  }
 }
