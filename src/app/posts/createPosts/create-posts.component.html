@@ -1,1 +1,9 @@
-<p>create posts</p>
+<h2 color="primary">{{ title }}</h2>
+<mat-card>
+  <mat-form-field class="example-full-width">
+    <textarea matInput [(ngModel)]="enteredValue" placeholder="Create a post"></textarea>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="onCreatePost()">Add Post</button>
+</mat-card>
+
+<p>{{ newPost }}</p>

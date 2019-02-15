@@ -1,7 +1,7 @@
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatInputModule, MatCardModule, MatFormFieldModule, MatButtonModule } from '@angular/material';
+import { MatToolbarModule } from '@angular/material';
 
 
 import { PostsComponent } from './posts.component';
@@ -13,13 +13,9 @@ import { CreatePostsComponent } from './createPosts/create-posts.component';
         CreatePostsComponent
     ],
     imports: [
-        CommonModule,
-        FormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatCardModule,
-        MatButtonModule
+        CommonModule,,
+        MatToolbarModule,
     ],
     exports: [PostsComponent]
 })
-export class PostsModule { }
+export class HeaderModule { }
