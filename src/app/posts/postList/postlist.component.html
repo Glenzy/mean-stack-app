@@ -1,11 +1,14 @@
-<mat-expansion-panel *ngFor="let post of posts">
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      {{post.title}}
-    </mat-panel-title>
-    <mat-panel-description>
-      {{post.category}}
-    </mat-panel-description>
-  </mat-expansion-panel-header>
-  <p>{{post.content}}</p>
-</mat-expansion-panel>
+<div *ngIf="posts.length > 0 ">
+  <mat-expansion-panel *ngFor="let post of posts">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{post.title}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{post.category}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>{{post.content}}</p>
+  </mat-expansion-panel>
+</div>
+<p body-1 *ngIf="posts.length === 0">Sorry no posts available</p>

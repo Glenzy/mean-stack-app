@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { IPostList } from '../shared/interfaces';
 @Component({
     selector: 'app-posts',
     templateUrl: './posts.component.html',
@@ -7,8 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostsComponent implements OnInit {
     title: String;
-    constructor() { }
+    storedPosts: IPostList[];
+    constructor() {
+        this.storedPosts = [];
+    }
     ngOnInit() {
         this.title = "Posts Component";
+    }
+
+    onPostAdded(post) {
+        this.storedPosts.push(post);
     }
 }

@@ -1,3 +1,3 @@
 <h2>{{ title }}</h2>
-<app-create-posts></app-create-posts>
-<app-postlist></app-postlist>
+<app-create-posts (postCreated)="onPostAdded($event)"></app-create-posts>
+<app-postlist [posts]="storedPosts"></app-postlist>

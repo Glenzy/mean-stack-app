@@ -6,7 +6,8 @@ import {
     MatCardModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSelectModule
 } from '@angular/material';
 
 import { PostsComponent } from './posts.component';
@@ -26,6 +27,7 @@ import { PostListComponent } from './postList/postlist.component'
         MatInputModule,
         MatCardModule,
         MatButtonModule,
+        MatSelectModule,
         MatExpansionModule
     ],
     exports: [PostsComponent]
