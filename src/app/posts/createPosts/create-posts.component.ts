@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import { IPost } from '../../shared/interfaces';
 
@@ -9,10 +10,6 @@ import { IPost } from '../../shared/interfaces';
 })
 export class CreatePostsComponent implements OnInit {
     title: String;
-    enteredPostTitle: String;
-    enteredPostContent: String;
-    enteredCategory: String;
-    enteredTag: String;
     newPost: IPost;
     formIsActive: boolean;
     @Output() postCreated = new EventEmitter;
@@ -31,13 +28,14 @@ export class CreatePostsComponent implements OnInit {
     onClickAddPostBtn() {
         return this.formIsActive = !this.formIsActive;
     }
-    onCreatePost() {
-        this.newPost.title = this.enteredPostTitle;
-        this.newPost.category = this.enteredCategory;
-        this.newPost.content = this.enteredPostContent;
-        this.newPost.tag = this.enteredTag;
+    onCreatePost(form: NgForm) {
+        if (form.invalid) {
+            return
+        }
+        this.newPost.title = form.value.title;
+        this.newPost.category = form.value.category;
+        this.newPost.content = form.value.content;
+        this.newPost.tag = form.value.tag;
         this.postCreated.emit(this.newPost);
-        console.log('title', this.enteredPostTitle);
-        console.log('post', this.newPost);
     }
 }
