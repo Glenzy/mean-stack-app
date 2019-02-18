@@ -15,6 +15,7 @@ export class CreatePostsComponent implements OnInit {
     formIsActive: boolean;
     constructor(public postsService: PostsService) {
         this.newPost = {
+            id: null,
             title: '',
             category: '',
             content: '',
