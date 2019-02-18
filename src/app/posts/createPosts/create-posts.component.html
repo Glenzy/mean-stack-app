@@ -1,0 +1,28 @@
+<h2 color="primary">{{ title }}</h2>
+<mat-card>
+  <form (submit)="onCreatePost(postForm)" #postForm="ngForm" *ngIf="formIsActive">
+    <button mat-button color="primary" (click)="onClickAddPostBtn()">Close form</button>
+    <mat-form-field class="example-full-width">
+      <input matInput name="title" placeholder="Title" ngModel required>
+      <mat-error>Title required</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select name="category" placeholder="Category" ngModel required>
+        <mat-option>None</mat-option>
+        <mat-option value="option1">Option 1</mat-option>
+        <mat-option value="option2">Option 2</mat-option>
+        <mat-option value="option3">Option 3</mat-option>
+        <mat-error>Category required</mat-error>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput name="tag" placeholder="Tag" ngModel>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput name="content" placeholder="Create a post" ngModel required></textarea>
+      <mat-error>Content required</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Add Post</button>
+  </form>
+  <button mat-raised-button color="primary" (click)="onClickAddPostBtn()" *ngIf="formIsActive === false">Add Post</button>
+</mat-card>
