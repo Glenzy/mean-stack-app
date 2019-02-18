@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
+import { IPost } from '../../shared/interfaces';
 import { PostsService } from '../../services/posts.service'
 
 @Component({
@@ -9,10 +10,14 @@ import { PostsService } from '../../services/posts.service'
 })
 export class PostListComponent implements OnInit {
     title: String;
-    @Input() posts = [];
+    posts: IPost[] = [];
     constructor(public PostsService: PostsService) { }
     ngOnInit() {
         this.title = "Post List Component";
         this.posts = this.PostsService.getPosts();
+        this.PostsService.getPostUpdateListener()
+            .subscribe((posts: IPost[]) => {
+                this.posts = posts;
+            });
     }
 }

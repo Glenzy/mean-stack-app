@@ -15,8 +15,12 @@ export class PostsService {
         return [...this.Posts];
     }
 
+    getPostUpdateListener() {
+        return this.postsUpdated.asObservable();
+    }
+
     addPost(newPost: IPost) {
         this.Posts.push(newPost);
-
+        this.postsUpdated.next([...this.Posts])
     }
 }

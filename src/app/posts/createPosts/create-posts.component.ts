@@ -1,7 +1,8 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { IPost } from '../../shared/interfaces';
+import { PostsService } from '../../services/posts.service'
 
 @Component({
     selector: 'app-create-posts',
@@ -12,8 +13,7 @@ export class CreatePostsComponent implements OnInit {
     title: String;
     newPost: IPost;
     formIsActive: boolean;
-    @Output() postCreated = new EventEmitter;
-    constructor() {
+    constructor(public postsService: PostsService) {
         this.newPost = {
             title: '',
             category: '',
@@ -36,6 +36,6 @@ export class CreatePostsComponent implements OnInit {
         this.newPost.category = form.value.category;
         this.newPost.content = form.value.content;
         this.newPost.tag = form.value.tag;
-        this.postCreated.emit(this.newPost);
+        this.postsService.addPost(this.newPost);
     }
 }
