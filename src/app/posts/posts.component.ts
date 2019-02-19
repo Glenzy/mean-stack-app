@@ -13,7 +13,7 @@ export class PostsComponent implements OnInit {
         this.storedPosts = [];
     }
     ngOnInit() {
-        this.title = "Posts Component";
+        this.title = "Make a post";
     }
 
     onPostAdded(post) {

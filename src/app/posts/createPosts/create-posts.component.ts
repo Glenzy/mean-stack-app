@@ -24,7 +24,6 @@ export class CreatePostsComponent implements OnInit {
         this.formIsActive = false;
     }
     ngOnInit() {
-        this.title = 'Create a Post';
     }
     onClickAddPostBtn() {
         return this.formIsActive = !this.formIsActive;

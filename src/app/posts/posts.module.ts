@@ -28,7 +28,7 @@ import { PostListComponent } from './postList/postlist.component'
         MatCardModule,
         MatButtonModule,
         MatSelectModule,
-        MatExpansionModule
+        MatExpansionModule,
     ],
     exports: [PostsComponent]
 })
