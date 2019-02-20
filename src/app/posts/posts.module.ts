@@ -12,7 +12,8 @@ import {
 
 import { PostsComponent } from './posts.component';
 import { CreatePostsComponent } from './createPosts/create-posts.component';
-import { PostListComponent } from './postList/postlist.component'
+import { PostListComponent } from './postList/postlist.component';
+import { ToggleCreatePostsFormService } from '../services/toggle-create-posts.service';
 
 @NgModule({
     declarations: [
@@ -30,6 +31,7 @@ import { PostListComponent } from './postList/postlist.component'
         MatSelectModule,
         MatExpansionModule,
     ],
+    providers: [ToggleCreatePostsFormService],
     exports: [PostsComponent]
 })
 export class PostsModule { }
