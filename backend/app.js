@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+import 'dotenv/config';
+const PostsRouter = require('./posts/posts.router');
 
 const posts = [{
     id: 0,
@@ -42,7 +44,7 @@ app.use((req, res, next) => {
 })
 
 
-
+app.use('/api/posts', PostsRouter);
 app.post('/api/posts', (req, res) => {
   const post = req.body;
   const message = 'Post successfully added';

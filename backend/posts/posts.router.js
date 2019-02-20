@@ -1,16 +1,21 @@
 import {
   Router
-} from 'express';
+} from 'express'
+import controller from './posts.controller'
 
-const router = Router();
+const router = Router()
 
-router.route('/')
-  .get()
-  .post()
-router.route('/:id')
-  .get()
-  .post()
-  .put()
-  .delete()
+// /api/post
+router
+  .route('/')
+  .get(controller.getOne)
+  .post(controller.createOne)
 
-export default router;
+// /api/post/:id
+router
+  .route('/:id')
+  .get(controller.getOne)
+  .put(controller.updateOne)
+  .delete(controller.removeOne)
+
+export default router
