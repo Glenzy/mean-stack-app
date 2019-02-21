@@ -1,31 +1,23 @@
 import 'dotenv/config';
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const PostsRouter = require('./posts/posts.router');
+import express from 'express';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import PostsRouter from './posts/posts.router';
 
-const posts = [{
-    id: 0,
-    title: 'Node Title 1',
-    content: 'this comes from the backend',
-    category: 'Backend',
-    tag: 'Node'
-  },
-  {
-    id: 1,
-    title: 'Node Title 2',
-    content: 'this comes from the backend',
-    category: 'Backend',
-    tag: 'Node'
-  },
-  {
-    id: 2,
-    title: 'Node Title 3',
-    content: 'this comes from the backend',
-    category: 'Backend',
-    tag: 'Node'
-  },
-]
+const username = process.env.DB_USERNAME;
+const password = process.env.DB_PASSWORD;
+
+const app = express();
+mongoose.connect(`mongodb+srv://${username}:${password}@mean-stack-app-jk9zy.mongodb.net/test?retryWrites=true`, {
+    useNewUrlParser: true
+  })
+  .then(() => {
+    console.log('connected to the database');
+  })
+  .catch(() => {
+    console.log('error connecting ot the database');
+  });
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false

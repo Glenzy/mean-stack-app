@@ -17,7 +17,7 @@ export class PostsService {
     getPosts() {
         this.http.get<{ message: string, posts: IPost[] }>('http://localhost:3030/api/posts')
             .subscribe((postData) => {
-                this.Posts = postData.posts;
+                this.Posts = postData.posts || [];
                 this.postsUpdated.next([...this.Posts]);
             });
         return this.Posts;
@@ -31,7 +31,6 @@ export class PostsService {
         const post = newPost;
         this.http.post<{ post: IPost[] }>('http://localhost:3030/api/posts', post)
             .subscribe((postResponse) => {
-                console.log(postResponse);
                 this.Posts.push(post);
                 this.postsUpdated.next([...this.Posts])
             });

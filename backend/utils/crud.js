@@ -8,16 +8,33 @@ export const getOne = model => async (req, res) => {
 //get
 export const getMany = model => async (req, res) => {
   console.log('Get many from db called');
-  res.status(200).json({
-    message: "Get many from db called"
-  });
+  try {
+    const docs = await model
+      .find(req.body)
+      .lean()
+      .exec()
+    res.status(200).json({
+      data: docs
+    });
+  } catch (error) {
+    console.log('Error getting data', error);
+    res.status(400).end();
+  }
 }
 //post
 export const createOne = model => async (req, res) => {
-  console.log('Create one on db called');
-  res.status(200).json({
-    message: "Create one on db called"
-  });
+  console.log('Create one on db called', req.body);
+  try {
+    const doc = await model.create({
+      ...req.body
+    })
+    res.status(201).json({
+      data: doc
+    })
+  } catch (error) {
+    console.log('Error writing data', error);
+    res.status(400).end();
+  }
 }
 
 export const updateOne = model => async (req, res) => {

@@ -8,7 +8,7 @@ const router = Router();
 // /api/post
 router
   .route('/')
-  .get(controller.getOne)
+  .get(controller.getMany)
   .post(controller.createOne)
 
 // /api/post/:id
