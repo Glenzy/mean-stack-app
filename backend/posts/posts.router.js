@@ -1,9 +1,9 @@
 import {
   Router
-} from 'express'
-import controller from './posts.controller'
+} from 'express';
+import controller from './posts.controller';
 
-const router = Router()
+const router = Router();
 
 // /api/post
 router
@@ -18,4 +18,5 @@ router
   .put(controller.updateOne)
   .delete(controller.removeOne)
 
-export default router
+//export default router;
+module.exports = router;
