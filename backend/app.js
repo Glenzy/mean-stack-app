@@ -6,6 +6,7 @@ import PostsRouter from './posts/posts.router';
 
 const username = process.env.DB_USERNAME;
 const password = process.env.DB_PASSWORD;
+
 const app = express();
 mongoose.connect(`mongodb+srv://${username}:${password}@mean-stack-app-jk9zy.mongodb.net/test?retryWrites=true`, {
     useNewUrlParser: true

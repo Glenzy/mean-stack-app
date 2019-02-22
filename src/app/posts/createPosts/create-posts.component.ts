@@ -42,6 +42,7 @@ export class CreatePostsComponent implements OnInit {
         this.newPost.content = form.value.content;
         this.newPost.tag = form.value.tag;
         this.postsService.addPost(this.newPost);
+        console.log(this.newPost);
     }
     onClickAddPostBtn() {
         this.toggleCreatePostsFormService.onClickAddPostBtn();
