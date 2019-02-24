@@ -7,16 +7,15 @@ export const getOne = model => async (req, res) => {
 }
 //get
 export const getMany = model => async (req, res) => {
-  console.log('Get many from db called', model);
-  console.log('Get many from db called', req.body);
+  //console.log('Get many from db called', req.body);
   try {
-    const docs = await model
+    const documents = await model
       .find()
       .lean()
       .exec()
-    console.log('docs', docs);
+    //console.log('docs', posts);
     res.status(200).json({
-      docs
+      posts: documents
     });
   } catch (error) {
     console.log('Error getting data', error);
