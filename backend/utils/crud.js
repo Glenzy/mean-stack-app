@@ -9,13 +9,13 @@ export const getOne = model => async (req, res) => {
 export const getMany = model => async (req, res) => {
   //console.log('Get many from db called', req.body);
   try {
-    const documents = await model
+    const posts = await model
       .find()
       .lean()
       .exec()
     //console.log('docs', posts);
     res.status(200).json({
-      posts: documents
+      posts
     });
   } catch (error) {
     console.log('Error getting data', error);
