@@ -18,7 +18,6 @@ export class PostsService {
     getPosts() {
         this.http.get<{ message: string, posts: any }>('http://localhost:3030/api/posts')
             .pipe(map((postData) => {
-                console.log(postData);
                 return postData.posts.map((post) => {
                     return {
                         title: post.title,
@@ -30,8 +29,9 @@ export class PostsService {
                 })
             }))
             .subscribe((postData) => {
-                console.log(postData);
-                this.Posts = postData.posts || [];
+                this.Posts = postData || [];
+                console.log('this.Posts', this.Posts);
+                console.log('postData', postData);
                 this.postsUpdated.next([...this.Posts]);
             });
         return this.Posts;
@@ -48,5 +48,9 @@ export class PostsService {
                 this.Posts.push(post);
                 this.postsUpdated.next([...this.Posts])
             });
+    }
+
+    deletePost(postId: string) {
+        this.http.delete('http://localhost:3030/api/posts/?id=' + postId)
     }
 }

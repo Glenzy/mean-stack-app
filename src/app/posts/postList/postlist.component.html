@@ -6,6 +6,10 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <p>{{post.content}}</p>
+    <mat-action-row>
+      <button mat-button color="primary">Edit</button>
+      <button mat-button color="warn" (click)="onDelete(post.id)">Delete</button>
+    </mat-action-row>
   </mat-expansion-panel>
 </div>
 <p body-1 *ngIf="posts.length === 0" class="center-text">Sorry no posts available</p>
