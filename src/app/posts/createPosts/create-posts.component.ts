@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+
 
 import { IPost } from '../../shared/interfaces';
 import { PostsService } from '../../services/posts.service'
 import { ToggleCreatePostsFormService } from '../../services/toggle-create-posts.service'
+
 
 @Component({
     selector: 'app-create-posts',
@@ -12,13 +15,16 @@ import { ToggleCreatePostsFormService } from '../../services/toggle-create-posts
 })
 export class CreatePostsComponent implements OnInit {
     title: String;
-    newPost: IPost;
+    post: IPost;
     formIsActive: boolean;
+    mode = 'create';
+    private postId: string
     constructor(
         public postsService: PostsService,
-        public toggleCreatePostsFormService: ToggleCreatePostsFormService
+        public toggleCreatePostsFormService: ToggleCreatePostsFormService,
+        public route: ActivatedRoute,
     ) {
-        this.newPost = {
+        this.post = {
             id: null,
             title: '',
             category: '',
@@ -31,17 +37,33 @@ export class CreatePostsComponent implements OnInit {
         this.toggleCreatePostsFormService.change.subscribe(formIsActive => {
             this.formIsActive = formIsActive;
         });
+        this.route.paramMap.subscribe((paramMap: ParamMap) => {
+            if (paramMap.has('postId')) {
+                this.mode = 'edit';
+                this.postId = paramMap.get('postId');
+                this.post = this.postsService.getPost(this.postId);
+            } else {
+                this.mode = 'create';
+                this.postId = null;
+            }
+        });
     }
 
     onCreatePost(form: NgForm) {
         if (form.invalid) {
             return
         }
-        this.newPost.title = form.value.title;
-        this.newPost.category = form.value.category;
-        this.newPost.content = form.value.content;
-        this.newPost.tag = form.value.tag;
-        this.postsService.addPost(this.newPost);
+        this.post.title = form.value.title;
+        this.post.category = form.value.category;
+        this.post.content = form.value.content;
+        this.post.tag = form.value.tag;
+        if (this.mode === 'create') {
+            this.postsService.addPost(this.post);
+        }
+        if (this.mode === 'edit') {
+            this.postsService.addPost(this.post);
+        }
+
         form.reset();
         this.toggleCreatePostsFormService.toggleCreatePostsForm();
     }

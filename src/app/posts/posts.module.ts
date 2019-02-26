@@ -9,6 +9,7 @@ import {
     MatExpansionModule,
     MatSelectModule
 } from '@angular/material';
+import { AppRoutingModule } from '../app-routing.module';
 
 import { PostsComponent } from './posts.component';
 import { CreatePostsComponent } from './createPosts/create-posts.component';
@@ -22,6 +23,7 @@ import { ToggleCreatePostsFormService } from '../services/toggle-create-posts.se
         PostListComponent
     ],
     imports: [
+        AppRoutingModule,
         CommonModule,
         FormsModule,
         MatFormFieldModule,
