@@ -11,7 +11,7 @@ import { ToggleCreatePostsFormService } from '../services/toggle-create-posts.se
 export class HeaderComponent implements OnInit {
     constructor(public toggleCreatePostsFormService: ToggleCreatePostsFormService) { }
     ngOnInit() { }
-    onClickAddPostBtn() {
-        this.toggleCreatePostsFormService.onClickAddPostBtn();
+    toggleCreatePostsForm() {
+        this.toggleCreatePostsFormService.toggleCreatePostsForm();
     }
 }

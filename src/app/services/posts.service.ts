@@ -4,16 +4,14 @@ import { map } from 'rxjs/operators'
 import { HttpClient } from '@angular/common/http'
 
 import { IPost } from '../shared/interfaces';
+import { post } from 'selenium-webdriver/http';
 
 @Injectable({ providedIn: 'root' })
 export class PostsService {
     private Posts: IPost[] = [];
     private postsUpdated = new Subject<IPost[]>();
-    private postsApiUrl = '/api/posts';
-    private port = 3030
-    constructor(private http: HttpClient) {
 
-    }
+    constructor(private http: HttpClient) { }
 
     getPosts() {
         this.http.get<{ message: string, posts: any }>('http://localhost:3030/api/posts')
@@ -30,8 +28,6 @@ export class PostsService {
             }))
             .subscribe((postData) => {
                 this.Posts = postData || [];
-                console.log('this.Posts', this.Posts);
-                console.log('postData', postData);
                 this.postsUpdated.next([...this.Posts]);
             });
         return this.Posts;
@@ -43,14 +39,23 @@ export class PostsService {
 
     addPost(newPost: IPost) {
         const post = newPost;
-        this.http.post<{ post: IPost[] }>('http://localhost:3030/api/posts', post)
+        this.http.post<{ post: IPost[], id: String }>('http://localhost:3030/api/posts', post)
             .subscribe((postResponse) => {
+                const id = postResponse.id;
+                post.id = id;
+                console.log(post);
                 this.Posts.push(post);
                 this.postsUpdated.next([...this.Posts])
             });
     }
 
     deletePost(postId: string) {
-        this.http.delete('http://localhost:3030/api/posts/?id=' + postId)
+        console.log(postId);
+        this.http.delete('http://localhost:3030/api/posts/' + postId)
+            .subscribe(() => {
+                const updatedPosts = this.Posts.filter((post) => post.id !== postId);
+                this.Posts = updatedPosts;
+                this.postsUpdated.next([...this.Posts])
+            });
     }
 }
