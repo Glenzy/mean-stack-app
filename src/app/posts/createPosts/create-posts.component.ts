@@ -17,27 +17,18 @@ export class CreatePostsComponent implements OnInit {
     formIsActive: boolean;
     mode = 'create';
     form: FormGroup;
+    imagePreview: string | ArrayBuffer;
 
     constructor(
         public postsService: PostsService,
         public toggleCreatePostsFormService: ToggleCreatePostsFormService,
-    ) {
-        this.formData = {
-            id: null,
-            title: '',
-            category: '',
-            content: '',
-            image: '',
-            tag: ''
-        };
-        this.formIsActive = false;
-    }
+    ) { this.formIsActive = false; }
     ngOnInit() {
         this.form = new FormGroup({
             'title': new FormControl(null, { validators: [Validators.required, Validators.minLength(3)] }),
             'category': new FormControl(null, { validators: [Validators.required] }),
             'content': new FormControl(null, { validators: [Validators.required, Validators.minLength(25)] }),
-            'image': new FormControl(null, {}),
+            'image': new FormControl(null, { validators: [Validators.required] }),
             'tag': new FormControl(null, { validators: [Validators.required, Validators.minLength(3)] })
         })
         this.toggleCreatePostsFormService.activeForm.subscribe(formIsActive => {
@@ -58,7 +49,17 @@ export class CreatePostsComponent implements OnInit {
             this.form.setValue(this.formData);
         })
     }
-
+    onImageUpload(event: Event) {
+        const file = (event.target as HTMLInputElement).files[0];
+        this.form.patchValue({ image: file });
+        this.form.get('image').updateValueAndValidity();
+        console.log(this.form.value.image)
+        const reader = new FileReader();
+        reader.onload = () => {
+            this.imagePreview = reader.result;
+        }
+        reader.readAsDataURL(file);
+    }
     onCreatePost() {
         if (this.form.invalid) { return }
 
@@ -78,6 +79,7 @@ export class CreatePostsComponent implements OnInit {
         this.form.reset();
         this.toggleCreatePostsFormService.toggleCreatePostsForm();
     }
+
     toggleCreatePostsForm() {
         this.toggleCreatePostsFormService.toggleCreatePostsForm();
     }

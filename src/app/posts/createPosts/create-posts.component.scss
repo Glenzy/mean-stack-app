@@ -32,10 +32,20 @@ button,
 }
 
 button[type="button"] {
-  width: 150px;
-
+  width: 10rem;
+  margin: 1rem 0;
+  display: inline-flex;
 }
 
 input[type="file"] {
   visibility: hidden;
+}
+
+.image-preview {
+  height: 5rem;
+  margin: 1rem 0;
+
+  & img {
+    height: 100%;
+  }
 }
