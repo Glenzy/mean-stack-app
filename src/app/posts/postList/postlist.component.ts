@@ -30,7 +30,9 @@ export class PostListComponent implements OnInit {
     onDelete(postId: string) {
         this.PostsService.deletePost(postId);
     }
-    editPost(id: string) {
+
+    editPost(postId: string) {
         this.toggleCreatePostsFormService.toggleCreatePostsForm();
+        this.toggleCreatePostsFormService.getPost(postId);
     }
 }

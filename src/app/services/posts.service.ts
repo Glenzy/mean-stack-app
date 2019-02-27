@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators'
 import { HttpClient } from '@angular/common/http'
 
 import { IPost } from '../shared/interfaces';
-import { post } from 'selenium-webdriver/http';
+
 
 @Injectable({ providedIn: 'root' })
 export class PostsService {
@@ -37,13 +37,11 @@ export class PostsService {
         return this.postsUpdated.asObservable();
     }
 
-    addPost(newPost: IPost) {
-        const post = newPost;
+    addPost(post: IPost) {
         this.http.post<{ post: IPost[], id: String }>('http://localhost:3030/api/posts', post)
             .subscribe((postResponse) => {
                 const id = postResponse.id;
                 post.id = id;
-                console.log(post);
                 this.Posts.push(post);
                 this.postsUpdated.next([...this.Posts])
             });
@@ -58,16 +56,18 @@ export class PostsService {
             });
     }
 
-    editPost(postId: string, post: IPost) {
-        console.log(postId);
+    editPost(post: IPost) {
+        const postId = post.id;
+        console.log('edit post', post);
         this.http.put('http://localhost:3030/api/posts/' + postId, post)
             .subscribe(() => {
+                this.Posts = this.Posts.filter((post) => post.id !== postId);
                 this.Posts.push(post);
                 this.postsUpdated.next([...this.Posts])
             });
     }
 
     getPost(id: string) {
-        return { ...this.Posts.find(post => post.id === id) };
+        return this.http.get<IPost>('http://localhost:3030/api/posts/' + id)
     }
 }

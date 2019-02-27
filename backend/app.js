@@ -31,10 +31,10 @@ app.use((req, res, next) => {
     'Origin, X-Requested-With, Content-Type, Accept'
   );
   res.setHeader('Access-Control-Allow-Methods',
-    'GET, POST, DELETE, OPTIONS, PATCH'
+    'GET, POST, DELETE, OPTIONS, PATCH, PUT'
   );
   next();
-})
+});
 
 
 app.use('/api/posts', PostsRouter);

@@ -10,7 +10,6 @@ import { AppComponent } from './app.component';
 import { PostsModule } from './posts/posts.module';
 import { HeaderModule } from './header/header.module';
 import { FooterModule } from './footer/footer.module';
-import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
@@ -20,7 +19,6 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,

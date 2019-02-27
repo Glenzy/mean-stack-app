@@ -6,7 +6,7 @@
 
   &.open {
     opacity: 1;
-    max-height: 384px;
+    max-height: 550px;
   }
 }
 
@@ -29,4 +29,13 @@ button,
 .mat-form-field {
   width: 90%;
   margin: auto;
+}
+
+button[type="button"] {
+  width: 150px;
+
+}
+
+input[type="file"] {
+  visibility: hidden;
 }

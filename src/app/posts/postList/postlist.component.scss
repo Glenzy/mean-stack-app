@@ -1,7 +1,16 @@
 .post-wrapper {
   margin: 20px auto 50px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .center-text {
   text-align: center;
+}
+
+.mat-card {
+  width: 350px;
+  max-width: 100%;
+  flex: 1 1 0;
+  margin: 5px;
 }

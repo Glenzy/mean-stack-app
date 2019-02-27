@@ -1,8 +1,19 @@
 //get:id
 export const getOne = model => async (req, res) => {
-  console.log('Get one from db called');
-  res.status(200).json({
-    message: "Get one from db called"
+  const id = req.params.id;
+  const post = await model.findOne({
+    _id: id
+  }, (error, result) => {
+    if (error) {
+      console.log('Error Updating data', error);
+      res.status(400).end();
+    }
+    if (result) {
+      console.log(result)
+      res.status(200).json({
+        post: result
+      });
+    }
   });
 }
 //get
@@ -43,6 +54,8 @@ export const updateOne = model => async (req, res) => {
   console.log('Update one on db called');
   const id = req.params.id;
   await model.updateOne({
+    _id: id
+  }, {
     ...req.body
   }, (error, result) => {
     if (error) {

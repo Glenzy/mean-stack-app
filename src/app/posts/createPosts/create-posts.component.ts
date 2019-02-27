@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-
 
 import { IPost } from '../../shared/interfaces';
 import { PostsService } from '../../services/posts.service'
@@ -15,16 +13,15 @@ import { ToggleCreatePostsFormService } from '../../services/toggle-create-posts
 })
 export class CreatePostsComponent implements OnInit {
     title: String;
-    post: IPost;
+    formData: IPost;
     formIsActive: boolean;
     mode = 'create';
-    private postId: string
+
     constructor(
         public postsService: PostsService,
         public toggleCreatePostsFormService: ToggleCreatePostsFormService,
-        public route: ActivatedRoute,
     ) {
-        this.post = {
+        this.formData = {
             id: null,
             title: '',
             category: '',
@@ -34,34 +31,37 @@ export class CreatePostsComponent implements OnInit {
         this.formIsActive = false;
     }
     ngOnInit() {
-        this.toggleCreatePostsFormService.change.subscribe(formIsActive => {
+        this.toggleCreatePostsFormService.activeForm.subscribe(formIsActive => {
             this.formIsActive = formIsActive;
         });
-        this.route.paramMap.subscribe((paramMap: ParamMap) => {
-            if (paramMap.has('postId')) {
-                this.mode = 'edit';
-                this.postId = paramMap.get('postId');
-                this.post = this.postsService.getPost(this.postId);
-            } else {
-                this.mode = 'create';
-                this.postId = null;
+
+        this.toggleCreatePostsFormService.editFormData.subscribe(formData => {
+            this.mode = 'edit';
+            this.formData = formData;
+            this.formData = {
+                id: formData._id,
+                title: formData.title,
+                content: formData.content,
+                tag: formData.tag,
+                category: formData.category
             }
-        });
+            console.log('this.formData', this.formData);
+        })
     }
 
     onCreatePost(form: NgForm) {
-        if (form.invalid) {
-            return
-        }
-        this.post.title = form.value.title;
-        this.post.category = form.value.category;
-        this.post.content = form.value.content;
-        this.post.tag = form.value.tag;
+        if (form.invalid) { return }
+        this.formData.title = form.value.title;
+        this.formData.category = form.value.category;
+        this.formData.content = form.value.content;
+        this.formData.tag = form.value.tag;
+
         if (this.mode === 'create') {
-            this.postsService.addPost(this.post);
+            this.postsService.addPost(this.formData);
         }
+
         if (this.mode === 'edit') {
-            this.postsService.addPost(this.post);
+            this.postsService.editPost(this.formData);
         }
 
         form.reset();
