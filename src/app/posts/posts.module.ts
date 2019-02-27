@@ -1,4 +1,4 @@
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -23,7 +23,7 @@ import { ToggleCreatePostsFormService } from '../services/toggle-create-posts.se
     ],
     imports: [
         CommonModule,
-        FormsModule,
+        ReactiveFormsModule,
         MatFormFieldModule,
         MatInputModule,
         MatCardModule,

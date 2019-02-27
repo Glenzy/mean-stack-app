@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { IPost } from '../../shared/interfaces';
 import { PostsService } from '../../services/posts.service'
@@ -16,6 +16,7 @@ export class CreatePostsComponent implements OnInit {
     formData: IPost;
     formIsActive: boolean;
     mode = 'create';
+    form: FormGroup;
 
     constructor(
         public postsService: PostsService,
@@ -26,11 +27,19 @@ export class CreatePostsComponent implements OnInit {
             title: '',
             category: '',
             content: '',
+            image: '',
             tag: ''
         };
         this.formIsActive = false;
     }
     ngOnInit() {
+        this.form = new FormGroup({
+            'title': new FormControl(null, { validators: [Validators.required, Validators.minLength(3)] }),
+            'category': new FormControl(null, { validators: [Validators.required] }),
+            'content': new FormControl(null, { validators: [Validators.required, Validators.minLength(25)] }),
+            'image': new FormControl(null, {}),
+            'tag': new FormControl(null, { validators: [Validators.required, Validators.minLength(3)] })
+        })
         this.toggleCreatePostsFormService.activeForm.subscribe(formIsActive => {
             this.formIsActive = formIsActive;
         });
@@ -46,15 +55,17 @@ export class CreatePostsComponent implements OnInit {
                 category: formData.category
             }
             console.log('this.formData', this.formData);
+            this.form.setValue(this.formData);
         })
     }
 
-    onCreatePost(form: NgForm) {
-        if (form.invalid) { return }
-        this.formData.title = form.value.title;
-        this.formData.category = form.value.category;
-        this.formData.content = form.value.content;
-        this.formData.tag = form.value.tag;
+    onCreatePost() {
+        if (this.form.invalid) { return }
+
+        this.formData.title = this.form.value.title;
+        this.formData.category = this.form.value.category;
+        this.formData.content = this.form.value.content;
+        this.formData.tag = this.form.value.tag;
 
         if (this.mode === 'create') {
             this.postsService.addPost(this.formData);
@@ -64,7 +75,7 @@ export class CreatePostsComponent implements OnInit {
             this.postsService.editPost(this.formData);
         }
 
-        form.reset();
+        this.form.reset();
         this.toggleCreatePostsFormService.toggleCreatePostsForm();
     }
     toggleCreatePostsForm() {

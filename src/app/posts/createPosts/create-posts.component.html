@@ -1,13 +1,13 @@
 <div class="card-wrapper" [ngClass]="{'open':formIsActive}">
   <mat-card *ngIf="formIsActive">
-    <form (submit)="onCreatePost(postForm)" #postForm="ngForm">
+    <form [formGroup]="form" (submit)="onCreatePost()">
       <button mat-button color="primary" (click)="toggleCreatePostsForm()">Close form</button>
       <mat-form-field class="example-full-width">
-        <input matInput name="title" placeholder="Title" [ngModel]="formData.title" required>
-        <mat-error>Title required</mat-error>
+        <input matInput formControlName="title" placeholder="Title">
+        <mat-error *ngIf="form.get('title').invalid">Title required</mat-error>
       </mat-form-field>
       <mat-form-field>
-        <mat-select name="category" placeholder="Category" [ngModel]="formData.category" required>
+        <mat-select formControlName="category" placeholder="Category">
           <mat-option>None</mat-option>
           <mat-option value="option1">Option 1</mat-option>
           <mat-option value="option2">Option 2</mat-option>
@@ -15,14 +15,14 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <input matInput name="tag" placeholder="Tag" [ngModel]="formData.tag">
+        <input matInput formControlName="tag" placeholder="Tag">
       </mat-form-field>
       <mat-form-field>
-        <textarea matInput name="content" placeholder="Create a post" [ngModel]="formData.content" required></textarea>
-        <mat-error>Content required</mat-error>
+        <textarea matInput formControlName="content" placeholder="Create a post"></textarea>
+        <mat-error *ngIf="form.get('content').invalid">Content required</mat-error>
       </mat-form-field>
-      <button type="button" mat-stroked-button color="accent" (click)="uploadImage.click()" required>Upload image</button>
-      <input type="file" name="image" [ngModel]="formData.image" #uploadImage (change)>
+      <button type="button" mat-stroked-button color="accent" (click)="uploadImage.click()">Upload image</button>
+      <input type="file" formControlName="image" #uploadImage>
       <button mat-raised-button color="primary" type="submit">Add Post</button>
     </form>
   </mat-card>
