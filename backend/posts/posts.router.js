@@ -10,10 +10,8 @@ const router = Router();
 router
   .route('/')
   .get(controller.getMany)
-  .post(multer({
-    storage: controller.storage
-  }).single('image'), controller.createOne);
-
+  .post(controller.createOne);
+//.post()
 // /api/post/:id
 router
   .route('/:id')

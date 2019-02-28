@@ -31,4 +31,21 @@ const storage = multer.diskStorage({
 });
 
 
-export default crudControllers(Posts);
+export default {
+  ...crudControllers(Posts),
+  createOne((req, res) {
+      console.log('Create one on db called', req.body);
+      console.log('Create one on db called', req.file);
+      try {
+        const doc = await model.create({
+          ...req.body
+        })
+        res.status(201).json({
+          data: doc,
+          id: doc._id
+        })
+      } catch (error) {
+        console.log('Error writing data', error);
+        res.status(400).end();
+      })
+  }

@@ -10,5 +10,28 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-toolber {
+  justify-content: center;
+  max-width: 100%;
+}
+
+.content-wrapper {
+  width: 100%;
+  min-width: 320px;
+  max-width: 80%;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  color: #fff;
+  height: 50px;
+}

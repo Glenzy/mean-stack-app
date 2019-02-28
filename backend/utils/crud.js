@@ -36,6 +36,7 @@ export const getMany = model => async (req, res) => {
 //post
 export const createOne = model => async (req, res) => {
   console.log('Create one on db called', req.body);
+  console.log('Create one on db called', req.file);
   try {
     const doc = await model.create({
       ...req.body
