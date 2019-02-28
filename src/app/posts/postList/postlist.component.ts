@@ -32,7 +32,7 @@ export class PostListComponent implements OnInit {
     }
 
     editPost(postId: string) {
-        this.toggleCreatePostsFormService.toggleCreatePostsForm();
+        this.toggleCreatePostsFormService.toggleCreatePostsForm(postId);
         this.toggleCreatePostsFormService.getPost(postId);
     }
 }

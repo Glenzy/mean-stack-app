@@ -38,21 +38,5 @@ app.use((req, res, next) => {
 
 
 app.use('/api/posts', PostsRouter);
-/*app.post('/api/posts', (req, res) => {
-  const post = req.body;
-  const message = 'Post successfully added';
-  console.log(post);
-  res.status(201).json({
-    message
-  });
-});
-
-app.get('/api/posts', (req, res) => {
-  const message = 'Get posts success';
-  res.status(200).json({
-    message,
-    posts
-  });
-}); */
 
 module.exports = app;

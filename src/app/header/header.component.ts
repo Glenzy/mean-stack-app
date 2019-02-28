@@ -12,6 +12,6 @@ export class HeaderComponent implements OnInit {
     constructor(public toggleCreatePostsFormService: ToggleCreatePostsFormService) { }
     ngOnInit() { }
     toggleCreatePostsForm() {
-        this.toggleCreatePostsFormService.toggleCreatePostsForm();
+        this.toggleCreatePostsFormService.toggleCreatePostsForm('noId');
     }
 }

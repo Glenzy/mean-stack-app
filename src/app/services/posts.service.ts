@@ -38,8 +38,16 @@ export class PostsService {
     }
 
     addPost(post: IPost) {
-        this.http.post<{ post: IPost[], id: String }>('http://localhost:3030/api/posts', post)
+
+        const postData = new FormData();
+        postData.append('title', post.title);
+        postData.append('content', post.content);
+        postData.append('tag', post.tag);
+        postData.append('category', post.category);
+        postData.append('image', post.image, post.title);
+        this.http.post<{ post: IPost[], id: String }>('http://localhost:3030/api/posts', postData)
             .subscribe((postResponse) => {
+                console.log('postResponse', postResponse);
                 const id = postResponse.id;
                 post.id = id;
                 this.Posts.push(post);
