@@ -6,7 +6,7 @@ export interface IPost {
     content: string,
     category: string,
     tag: string,
-    image?: File
+    image: string
 }
 
 export type IPostList = [IPost]

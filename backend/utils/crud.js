@@ -37,14 +37,16 @@ export const getMany = model => async (req, res) => {
 export const createOne = model => async (req, res) => {
   console.log('Create one on db called', req.body);
   console.log('Create one on db called', req.file);
+  const host = req.protocol + '://' + req.get('host');
   try {
-    const doc = await model.create({
-      ...req.body
-    })
+    const post = await model.create({
+      ...req.body,
+      image: host + '/images/' + req.file.filename
+    });
     res.status(201).json({
-      data: doc,
-      id: doc._id
-    })
+      data: post,
+      id: post._id
+    });
   } catch (error) {
     console.log('Error writing data', error);
     res.status(400).end();

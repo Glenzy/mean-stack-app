@@ -1,16 +1,17 @@
-.post-wrapper {
-  margin: 20px auto 50px;
-  display: flex;
-  justify-content: space-between;
-}
-
 .center-text {
   text-align: center;
 }
 
 .mat-card {
-  width: 350px;
-  max-width: 100%;
-  flex: 1 1 0;
-  margin: 5px;
+  display: flex;
+  padding: 1rem;
+  flex-direction: column;
+
+  @media(min-width: 40rem) {
+    width: 50%;
+  }
+
+  @media(min-width: 56rem) {
+    width: 33.3333%;
+  }
 }

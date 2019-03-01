@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
@@ -23,6 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
+app.use('/images', express.static(path.join('backend/images')));
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin',
     'http://localhost:4200'
@@ -38,5 +40,6 @@ app.use((req, res, next) => {
 
 
 app.use('/api/posts', PostsRouter);
+
 
 module.exports = app;

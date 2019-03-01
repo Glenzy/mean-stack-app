@@ -1,5 +1,6 @@
 <div class="post-wrapper" *ngIf="posts.length > 0 ">
   <mat-card *ngFor="let post of posts">
+    <img src="{{post.image}}" />
     <h4>{{post.title}}</h4>
     <p>{{post.content}}</p>
     <mat-action-row>
@@ -8,4 +9,6 @@
     </mat-action-row>
   </mat-card>
 </div>
-<p body-1 *ngIf="posts.length === 0" class="center-text">Sorry no posts available</p>
+<div class="post-wrapper" *ngIf="posts.length === 0">
+  <p body-1 class="center-text">Sorry no posts available</p>
+</div>
