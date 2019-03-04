@@ -4,6 +4,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import PostsRouter from './posts/posts.router';
+import UsersRouter from './users/users.router';
 
 const username = process.env.DB_USERNAME;
 const password = process.env.DB_PASSWORD;
@@ -40,6 +41,7 @@ app.use((req, res, next) => {
 
 
 app.use('/api/posts', PostsRouter);
+app.use('/signup', UsersRouter);
 
 
 module.exports = app;

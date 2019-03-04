@@ -1,7 +1,11 @@
-<mat-toolbar color="primary">
+<mat-toolbar>
   <div class="content-wrapper">
-    <span>MEAN Stack App</span>
+    <a mat-button routerLink="">
+      <span>MEAN Stack App</span>
+    </a>
     <span class="fill-remaining-space"></span>
+    <a mat-button routerLink="/signup" routerLinkActive="accent">Sign up</a>
+    <a mat-button routerLink="/login" routerLinkActive="accent">Log in</a>
     <button mat-raised-button color="accent" (click)="toggleCreatePostsForm('noId')">Add Post</button>
   </div>
 </mat-toolbar>

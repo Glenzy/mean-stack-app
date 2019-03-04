@@ -44,12 +44,20 @@ img {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
+  justify-content: center;
 }
 
-.mat-toolber {
-  justify-content: center;
-  max-width: 100%;
-  height: 50px;
+.mat-toolbar {
+
+
+  &.footer {
+    position: fixed;
+    bottom: 0;
+  }
+
+  li {
+    list-style: none;
+  }
 }
 
 .content-wrapper {
@@ -62,4 +70,32 @@ img {
   margin: auto;
   color: #fff;
 
+}
+
+app-header,
+app-footer {
+  z-index: 10;
+  position: fixed;
+  min-width: 100%;
+  justify-content: center;
+  max-width: 100%;
+  min-width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  .mat-toolbar {
+    background-color: rgba(67, 67, 67, 0.81);
+    min-width: 100%;
+    transition: max-height 0.3s ease-in-out;
+
+    &.scrolled {
+      max-height: 25px;
+    }
+  }
+}
+
+app-footer {
+  top: initial;
+  bottom: 0;
 }
