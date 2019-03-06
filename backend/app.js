@@ -1,15 +1,25 @@
 import 'dotenv/config';
 import path from 'path';
 import express from 'express';
-import bodyParser from 'body-parser';
+import {
+  json,
+  urlencoded
+} from 'body-parser';
+import cors from 'cors';
 import mongoose from 'mongoose';
 import PostsRouter from './posts/posts.router';
-import UsersRouter from './users/users.router';
+import UserRouter from './user/user.router';
+import {
+  signup,
+  signin,
+  protect
+} from './utils/auth';
 
 const username = process.env.DB_USERNAME;
 const password = process.env.DB_PASSWORD;
 
 const app = express();
+
 mongoose.connect(`mongodb+srv://${username}:${password}@mean-stack-app-jk9zy.mongodb.net/test?retryWrites=true`, {
     useNewUrlParser: true
   })
@@ -21,27 +31,19 @@ mongoose.connect(`mongodb+srv://${username}:${password}@mean-stack-app-jk9zy.mon
     process.exit(1);
   });
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: false
+app.disable('x-powered-by');
+app.use(cors({
+  "origin": "http://localhost:4200"
 }));
+app.use(json());
+app.use(urlencoded({
+  extended: true
+}));
+
 app.use('/images', express.static(path.join('backend/images')));
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin',
-    'http://localhost:4200'
-  );
-  res.setHeader('Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
-  );
-  res.setHeader('Access-Control-Allow-Methods',
-    'GET, POST, DELETE, OPTIONS, PATCH, PUT'
-  );
-  next();
-});
-
-
 app.use('/api/posts', PostsRouter);
-app.use('/signup', UsersRouter);
-
+app.use('/signup', signup);
+app.use('/signin', signin);
+app.use('/loggedIn', protect);
 
 module.exports = app;

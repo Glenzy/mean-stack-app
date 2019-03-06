@@ -6,12 +6,13 @@
   display: flex;
   padding: 1rem;
   flex-direction: column;
+  margin: 5px;
 
   @media(min-width: 40rem) {
     width: 50%;
   }
 
   @media(min-width: 56rem) {
-    width: 33.3333%;
+    width: 25%;
   }
 }

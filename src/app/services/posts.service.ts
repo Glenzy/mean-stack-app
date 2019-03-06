@@ -46,7 +46,8 @@ export class PostsService {
         postData.append('tag', post.tag);
         postData.append('category', post.category);
         postData.append('image', post.image, post.title);
-        this.http.post<{ id: String, data: { category: string, image: string, content: string, tag: string, title: string, } }>('http://localhost:3030/api/posts', postData)
+        this.http
+            .post<{ id: String, data: { category: string, image: string, content: string, tag: string, title: string, } }>('http://localhost:3030/api/posts', postData)
             .subscribe((postResponse) => {
                 console.log('postResponse', postResponse.data.image);
                 const postData: IPost = {

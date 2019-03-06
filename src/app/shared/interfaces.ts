@@ -10,3 +10,9 @@ export interface IPost {
 }
 
 export type IPostList = [IPost]
+
+
+export interface IAuthData {
+    email: string,
+    password: string
+}

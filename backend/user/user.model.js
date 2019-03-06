@@ -14,19 +14,15 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   settings: {
-    icon: {
+    profilePic: {
       type: String,
       required: true,
+      default: '/backend/images/default-user-icon.png'
     },
-    notifications: {
-      type: Boolean,
+    posts: {
+      type: Array,
       required: true,
-      default: true
-    },
-    compactMode: {
-      type: Boolean,
-      required: true,
-      default: false
+      default: []
     }
   }
 }, {
@@ -37,16 +33,14 @@ userSchema.pre('save', function (next) {
   if (!this.isModified('password')) {
     return next();
   }
-
   bcrypt.hash(this.password, 8, (err, hash) => {
     if (err) {
       return next(err);
     }
-
     this.password = hash;
-    next()
-  })
-})
+    next();
+  });
+});
 
 userSchema.methods.checkPassword = function (password) {
   const passwordHash = this.password;
