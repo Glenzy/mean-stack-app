@@ -1,7 +1,6 @@
-<div class="card-wrapper" [ngClass]="{'open':formIsActive}">
-  <mat-card *ngIf="formIsActive">
+<div class="form-wrapper">
+  <mat-card>
     <form [formGroup]="form" (submit)="onCreatePost()">
-      <button mat-button color="primary" (click)="toggleCreatePostsForm()">Close form</button>
       <mat-form-field class="example-full-width">
         <input matInput formControlName="title" placeholder="Title">
         <mat-error *ngIf="form.get('title').invalid">Title required</mat-error>

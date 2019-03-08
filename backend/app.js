@@ -11,7 +11,7 @@ import PostsRouter from './posts/posts.router';
 import UserRouter from './user/user.router';
 import {
   signup,
-  signin,
+  login,
   protect
 } from './utils/auth';
 
@@ -40,10 +40,12 @@ app.use(urlencoded({
   extended: true
 }));
 
+app.post('/api/posts', protect);
+app.put('/api/posts', protect);
+app.delete('/api/posts', protect);
 app.use('/images', express.static(path.join('backend/images')));
 app.use('/api/posts', PostsRouter);
 app.use('/signup', signup);
-app.use('/signin', signin);
-app.use('/loggedIn', protect);
+app.use('/login', login);
 
 module.exports = app;

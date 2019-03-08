@@ -3,8 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { mimeTypeValidator } from './mime-type.validator';
 import { IPost } from '../../shared/interfaces';
 import { PostsService } from '../../services/posts.service'
-import { ToggleCreatePostsFormService } from '../../services/toggle-create-posts.service'
-
+import { ActivatedRoute, ParamMap } from "@angular/router";
 
 @Component({
     selector: 'app-create-posts',
@@ -18,11 +17,9 @@ export class CreatePostsComponent implements OnInit {
     mode = 'create';
     form: FormGroup;
     imagePreview: string | ArrayBuffer;
-
-    constructor(
-        public postsService: PostsService,
-        public toggleCreatePostsFormService: ToggleCreatePostsFormService,
-    ) {
+    private postId: string;
+    isLoading: boolean;
+    constructor(public postsService: PostsService, public route: ActivatedRoute) {
         this.formIsActive = false;
         this.formData = {
             id: null,
@@ -44,27 +41,29 @@ export class CreatePostsComponent implements OnInit {
             'image': new FormControl(null, { validators: [Validators.required], asyncValidators: [mimeTypeValidator] }),
             'tag': new FormControl(null, { validators: [Validators.required, Validators.minLength(3)] })
         })
-        this.toggleCreatePostsFormService.activeForm.subscribe(state => {
-            if (state.id.length === 4) {
-                this.form.reset();
+        this.route.paramMap.subscribe((paramMap: ParamMap) => {
+            if (paramMap.has("postId")) {
+                this.mode = "edit";
+                this.postId = paramMap.get("postId");
+                this.isLoading = true;
+                this.postsService.getPost(this.postId).subscribe(postData => {
+                    console.log(postData);
+                    this.isLoading = false;
+                    this.formData = {
+                        id: this.postId,
+                        title: postData.title,
+                        content: postData.content,
+                        tag: postData.tag,
+                        category: postData.category,
+                        image: ''
+                    };
+                    this.form.setValue({ ...this.formData });
+                });
+            } else {
+                this.mode = "create";
+                this.postId = null;
             }
-            this.formIsActive = state.formIsActive;
         });
-
-
-        this.toggleCreatePostsFormService.editFormData.subscribe(formData => {
-            this.mode = 'edit';
-            this.formData = formData;
-            this.formData = {
-                id: formData._id,
-                title: formData.title,
-                content: formData.content,
-                tag: formData.tag,
-                category: formData.category,
-                image: formData.image || null
-            }
-            this.form.setValue(this.formData);
-        })
     }
 
     onImageUpload(event: Event) {
@@ -91,15 +90,9 @@ export class CreatePostsComponent implements OnInit {
         }
 
         if (this.mode === 'edit') {
-            this.formData.id = this.form.value.id;
             this.postsService.editPost(this.formData);
         }
 
         this.form.reset();
-        this.toggleCreatePostsFormService.toggleCreatePostsForm('noId');
-    }
-
-    toggleCreatePostsForm() {
-        this.toggleCreatePostsFormService.toggleCreatePostsForm('noId');
     }
 }

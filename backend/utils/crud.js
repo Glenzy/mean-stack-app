@@ -11,7 +11,12 @@ export const getOne = model => async (req, res) => {
     if (result) {
       console.log(result)
       res.status(200).json({
-        post: result
+        id: result._id,
+        title: result.title,
+        tag: result.tag,
+        content: result.content,
+        category: result.category,
+        image: result.image
       });
     }
   });
@@ -54,12 +59,15 @@ export const createOne = model => async (req, res) => {
 }
 
 export const updateOne = model => async (req, res) => {
-  console.log('Update one on db called');
+  console.log('Update one on db called', req.body);
+  console.log('Update one on db called', req.file.filename);
+  const host = req.protocol + '://' + req.get('host');
   const id = req.params.id;
   await model.updateOne({
-    _id: id
+    _id: id,
   }, {
-    ...req.body
+    ...req.body,
+    image: host + '/images/' + req.file.filename
   }, (error, result) => {
     if (error) {
       console.log('Error Updating data', error);

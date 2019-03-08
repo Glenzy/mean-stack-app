@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { IPost } from '../../shared/interfaces';
 import { PostsService } from '../../services/posts.service'
-import { ToggleCreatePostsFormService } from '../../services/toggle-create-posts.service'
 
 @Component({
     selector: 'app-postlist',
@@ -13,8 +12,7 @@ export class PostListComponent implements OnInit {
     title: String;
     posts: IPost[] = [];
     PostsSubscription: any;
-    constructor(public PostsService: PostsService,
-        public toggleCreatePostsFormService: ToggleCreatePostsFormService) { }
+    constructor(public PostsService: PostsService) { }
     ngOnInit() {
         this.title = "Post List Component";
         this.PostsService.getPosts();
@@ -30,10 +28,5 @@ export class PostListComponent implements OnInit {
 
     onDelete(postId: string) {
         this.PostsService.deletePost(postId);
-    }
-
-    editPost(postId: string) {
-        this.toggleCreatePostsFormService.toggleCreatePostsForm(postId);
-        this.toggleCreatePostsFormService.getPost(postId);
     }
 }

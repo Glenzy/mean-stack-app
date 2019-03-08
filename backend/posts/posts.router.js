@@ -10,6 +10,7 @@ const MIME_TYPE_MAP = {
   'image/jpg': 'jpg'
 };
 const storage = multer.diskStorage({
+
   destination: (req, file, callback) => {
     const isValid = MIME_TYPE_MAP[file.mimetype];
     let error = new Error("invalid mime type");
@@ -19,7 +20,8 @@ const storage = multer.diskStorage({
     callback(error, 'backend/images');
   },
   filename: (req, file, callback) => {
-    const name = file.originalname.toLowerCase().split(' ').join('-');
+    const originalname = file.originalname.replace(/\?/g, '');
+    const name = originalname.toLowerCase().split(' ').join('-');
     const ext = MIME_TYPE_MAP[file.mimetype];
     callback(null, name + '-' + Date.now() + '.' + ext);
   }
@@ -39,7 +41,9 @@ router
 router
   .route('/:id')
   .get(controller.getOne)
-  .put(controller.updateOne)
+  .put(multer({
+    storage: storage
+  }).single('image'), controller.updateOne)
   .delete(controller.removeOne);
 
 //export default router;

@@ -15,7 +15,7 @@ export const newToken = user => {
 export const verifyToken = token =>
   new Promise((resolve, reject) => {
     jwt.verify(token, config.secrets.jwt, (err, payload) => {
-      if (err) return reject(err)
+      if (err) return reject(err);
       resolve(payload);
     });
   });
@@ -43,11 +43,11 @@ export const signup = async (req, res) => {
 
 
 
-export const signin = async (req, res) => {
+export const login = async (req, res) => {
   if (!req.body.email || !req.body.password) {
     res.status(400).send('Email and password required');
   }
-  const user = await findOne({
+  const user = await User.findOne({
     email: req.body.email
   });
   if (!user) {
@@ -69,6 +69,9 @@ export const signin = async (req, res) => {
     res.status(401).end();
   }
 };
+
+
+
 export const protect = async (req, res, next) => {
   const bearer = req.headers.authorization;
 

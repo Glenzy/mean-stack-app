@@ -1,4 +1,3 @@
-import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -9,21 +8,21 @@ import {
     MatExpansionModule,
     MatSelectModule
 } from '@angular/material';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptorService } from '../shared/auth-interceptor';
 
 import { PostsComponent } from './posts.component';
-import { CreatePostsComponent } from './createPosts/create-posts.component';
 import { PostListComponent } from './postList/postlist.component';
-import { ToggleCreatePostsFormService } from '../services/toggle-create-posts.service';
+import { AppRoutingModule } from "../app-router.module";
 
 @NgModule({
     declarations: [
         PostsComponent,
-        CreatePostsComponent,
         PostListComponent
     ],
     imports: [
         CommonModule,
-        ReactiveFormsModule,
+        AppRoutingModule,
         MatFormFieldModule,
         MatInputModule,
         MatCardModule,
@@ -31,7 +30,7 @@ import { ToggleCreatePostsFormService } from '../services/toggle-create-posts.se
         MatSelectModule,
         MatExpansionModule,
     ],
-    providers: [ToggleCreatePostsFormService],
-    exports: [PostsComponent]
+    exports: [PostsComponent],
+    providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }]
 })
 export class PostsModule { }

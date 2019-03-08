@@ -74,10 +74,26 @@ export class PostsService {
 
     editPost(post: IPost) {
         const postId = post.id;
-        console.log('edit post', post);
-        this.http.put('http://localhost:3030/api/posts/' + postId, post)
-            .subscribe(() => {
-                this.Posts = this.Posts.filter((post) => post.id !== postId);
+
+        const postData = new FormData();
+        postData.append('title', post.title);
+        postData.append('content', post.content);
+        postData.append('tag', post.tag);
+        postData.append('category', post.category);
+        postData.append('image', post.image, post.title);
+
+        this.http.put<{ id: String, data: { category: string, image: string, content: string, tag: string, title: string, } }>('http://localhost:3030/api/posts/' + postId, postData)
+            .subscribe((postResponse) => {
+                console.log('postResponse', postResponse.data.image);
+                const postData: IPost = {
+                    id: postResponse.id,
+                    content: postResponse.data.content,
+                    title: postResponse.data.title,
+                    tag: postResponse.data.tag,
+                    image: postResponse.data.image,
+                    category: postResponse.data.category
+                }
+                this.Posts = this.Posts.filter((post) => post.id !== postData.id);
                 this.Posts.push(post);
                 this.postsUpdated.next([...this.Posts])
             });
