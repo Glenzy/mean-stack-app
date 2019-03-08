@@ -61,7 +61,8 @@ export const login = async (req, res) => {
 
     const token = newToken(user);
     return res.status(200).send({
-      token
+      token,
+      expiresIn: 6300,
     });
 
   } catch (error) {
