@@ -70,10 +70,13 @@ export class AuthService {
     autoAuthUser() {
 
         const authInformation = this.getAuthData();
+        if (!authInformation) {
+            return;
+        }
         const now = new Date();
         const expirationDate = Date.parse(authInformation.expirationDate);
         const expiresIn = (expirationDate * 1000) - now.getTime();
-        console.log('autoAuth called expires in: ', expirationDate);
+
         if (expiresIn > 0) {
             this.token = authInformation.token;
             this.isAuthenticated = true;
