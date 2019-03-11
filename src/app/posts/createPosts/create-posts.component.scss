@@ -1,3 +1,15 @@
+.card-wrapper {
+  opacity: 0;
+  max-height: 0;
+  transition: opacity 0.4s ease-in-out;
+  transition: max-height 0.2s ease-in-out;
+
+  &.open {
+    opacity: 1;
+    max-height: 550px;
+  }
+}
+
 h2 {
   color: #333;
   text-align: center;
@@ -9,8 +21,31 @@ h2 {
   margin: auto;
 }
 
+form .mat-form-field {
+  width: 100%;
+}
+
 button,
 .mat-form-field {
   width: 90%;
   margin: auto;
+}
+
+button[type="button"] {
+  width: 10rem;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+input[type="file"] {
+  visibility: hidden;
+}
+
+.image-preview {
+  height: 5rem;
+  margin: 1rem 0;
+
+  & img {
+    height: 100%;
+  }
 }

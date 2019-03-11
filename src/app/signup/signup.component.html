@@ -1,0 +1,15 @@
+<div class="form-wrapper">
+  <form (submit)="onSignup(loginForm)" #loginForm="ngForm">
+    <mat-form-field class="example-full-width">
+      <input matInput name="email" ngModel placeholder="email" type="text" autocomplete="email" #emailInput="ngModel"
+        required email>
+      <mat-error *ngIf="emailInput.invalid">Please put in a valid email</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput name="password" ngModel placeholder="password" type="password" autocomplete="current-password"
+        required #passwordInput="ngModel">
+      <mat-error *ngIf="passwordInput.invalid">You need a password</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Log in</button>
+  </form>
+</div>

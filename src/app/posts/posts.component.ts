@@ -7,14 +7,11 @@ import { IPostList } from '../shared/interfaces';
     styleUrls: ['./posts.component.scss']
 })
 export class PostsComponent implements OnInit {
-    title: String;
     storedPosts: IPostList[];
     constructor() {
         this.storedPosts = [];
     }
-    ngOnInit() {
-        this.title = "Posts Component";
-    }
+    ngOnInit() { }
 
     onPostAdded(post) {
         this.storedPosts.push(post);

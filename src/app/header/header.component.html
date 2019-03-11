@@ -1,5 +1,16 @@
-<mat-toolbar color="primary">
-  <span>Application Title</span>
-  <span class="example-fill-remaining-space"></span>
-  <span>Right Aligned Text</span>
+<mat-toolbar>
+  <div class="content-wrapper">
+    <a mat-button routerLink="">
+      <span>GCDevelopment Blog</span>
+    </a>
+    <span class="fill-remaining-space"></span>
+    <div *ngIf="!userIsAuthenticated">
+      <a mat-button routerLink="/signup" routerLinkActive="accent">Sign up</a>
+      <a mat-button routerLink="/login" routerLinkActive="accent">Log in</a>
+    </div>
+    <div *ngIf="userIsAuthenticated">
+      <a mat-raised-button color="accent" routerLink="/add-post" routerLinkActive="accent">Add Post</a>
+      <button mat-button color="accent" (click)="logOutUser()">Log out</button>
+    </div>
+  </div>
 </mat-toolbar>

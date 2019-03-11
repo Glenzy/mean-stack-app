@@ -1,14 +1,14 @@
-<div *ngIf="posts.length > 0 ">
-  <mat-expansion-panel *ngFor="let post of posts">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{post.title}}
-      </mat-panel-title>
-      <mat-panel-description>
-        {{post.category}}
-      </mat-panel-description>
-    </mat-expansion-panel-header>
+<div class="post-wrapper" *ngIf="posts.length > 0 ">
+  <mat-card *ngFor="let post of posts">
+    <img src="{{post.image}}" />
+    <h4>{{post.title}}</h4>
     <p>{{post.content}}</p>
-  </mat-expansion-panel>
+    <mat-action-row *ngIf="userIsAuthenticated">
+      <a mat-button color="primary" [routerLink]="['/edit-post', post.id]" routerLinkActive="accent">Edit</a>
+      <button mat-button color="warn" (click)="onDelete(post.id)">Delete</button>
+    </mat-action-row>
+  </mat-card>
 </div>
-<p body-1 *ngIf="posts.length === 0">Sorry no posts available</p>
+<div class="post-wrapper" *ngIf="posts.length === 0">
+  <p body-1 class="center-text">Sorry no posts available</p>
+</div>

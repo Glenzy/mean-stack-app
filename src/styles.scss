@@ -8,7 +8,93 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  min-height: 100vh;
+  background: #ff8080;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+img {
+  display: block;
+  max-width: 100%;
+  margin: auto;
+}
+
+/* == layout == */
+
+
+.main-container {
+  max-width: 1440px;
+  margin: auto;
+  height: 100%;
+  display: block;
+}
+
+.main-container .post-wrapper {
+  width: 90%;
+  margin: auto;
+  padding: 3rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  justify-content: center;
+}
+
+.mat-toolbar {
+
+
+  &.footer {
+    position: fixed;
+    bottom: 0;
+  }
+
+  li {
+    list-style: none;
+  }
+}
+
+.content-wrapper {
+  width: 100%;
+  min-width: 320px;
+  max-width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  color: #fff;
+
+}
+
+app-header,
+app-footer {
+  z-index: 10;
+  position: fixed;
+  min-width: 100%;
+  justify-content: center;
+  max-width: 100%;
+  min-width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  .mat-toolbar {
+    background-color: rgba(67, 67, 67, 0.81);
+    min-width: 100%;
+    transition: max-height 0.3s ease-in-out;
+
+    &.scrolled {
+      max-height: 25px;
+    }
+  }
+}
+
+app-footer {
+  top: initial;
+  bottom: 0;
+}
+
+.form-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
