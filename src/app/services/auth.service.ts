@@ -73,17 +73,21 @@ export class AuthService {
         if (!authInformation) {
             return;
         }
+
         const now = new Date();
         const expirationDate = Date.parse(authInformation.expirationDate);
         const expiresIn = (expirationDate * 1000) - now.getTime();
-
         if (expiresIn > 0) {
             this.token = authInformation.token;
             this.isAuthenticated = true;
-            this.setTokenTimer(expiresIn);
-            this.authStatusListener.next(true);
+            this.setTokenTimer(expiresIn / 1000);
+            return this.authStatusListener.next(true);
         }
     }
+
+
+
+
 
     private setTokenTimer(duration: number) {
         this.tokenTimer = setTimeout(() => {
@@ -95,6 +99,7 @@ export class AuthService {
         localStorage.setItem('token', token);
         localStorage.setItem('expiration', expirationDate.toISOString());
     }
+
     private clearAuthData() {
         localStorage.removeItem('token');
         localStorage.removeItem('expiration');
@@ -103,6 +108,7 @@ export class AuthService {
     private getAuthData() {
         const token = localStorage.getItem('token');
         const expirationDate = localStorage.getItem('expiration');
+
         if (!token || !expirationDate) {
             return;
         }
@@ -111,4 +117,5 @@ export class AuthService {
             expirationDate
         }
     }
+
 }
